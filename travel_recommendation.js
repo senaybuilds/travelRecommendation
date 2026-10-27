@@ -38,23 +38,27 @@ searchBtn.addEventListener("click", function () {
 
   let recommendations = [];
 
-  if (keyword === "beach" || keyword === "beaches") {
+  if (keyword.includes("beach")) {
     recommendations = travelData.beaches;
-  } else if (keyword === "temple" || keyword === "temples") {
+  } else if (keyword.includes("temple")) {
     recommendations = travelData.temples;
-  } else if (keyword === "country" || keyword === "countries") {
+  } else if (keyword.includes("country") || keyword.includes("countries")) {
     recommendations = travelData.countries.flatMap((country) => country.cities);
   } else {
-    const country = travelData.countries.find(
-      (country) => country.name.toLowerCase() === keyword,
+    const country = travelData.countries.find((country) =>
+      keyword.includes(country.name.toLowerCase()),
     );
 
     if (country) {
       recommendations = country.cities;
     }
   }
-
-  displayRecommendations(recommendations);
+  if (recommendations.length > 0) {
+    displayRecommendations(recommendations);
+  } else {
+    document.getElementById("results").innerHTML =
+      `<p>No recommendations found. Try beaches, temples, japan, Australia or Brazil.</p>`;
+  }
 });
 
 clearBtn.addEventListener("click", function () {
