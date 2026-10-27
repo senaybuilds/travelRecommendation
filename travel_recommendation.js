@@ -42,6 +42,8 @@ searchBtn.addEventListener("click", function () {
     recommendations = travelData.beaches;
   } else if (keyword === "temple" || keyword === "temples") {
     recommendations = travelData.temples;
+  } else if (keyword === "country" || keyword === "countries") {
+    recommendations = travelData.countries.flatMap((country) => country.cities);
   } else {
     const country = travelData.countries.find(
       (country) => country.name.toLowerCase() === keyword,
